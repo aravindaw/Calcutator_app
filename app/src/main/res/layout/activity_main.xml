@@ -241,12 +241,13 @@
         android:layout_toRightOf="@+id/clr"
         android:layout_marginLeft="1dp"
         android:layout_alignRight="@+id/add"
+        android:textColor="#A4A4A4"
         android:layout_alignEnd="@+id/add" />
 
     <EditText
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textSize="10dp"
+        android:textSize="25dp"
         android:id="@+id/display"
         android:gravity="center_horizontal"
         android:layout_below="@+id/textView"

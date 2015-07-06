@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Editable ftNum;
     Editable sdNum;
 
-    Button btnAdd, btnSub, btnMul, btnDiv, btnClrAl, btnClr, btnEql;
+    Button btnAdd, btnSub, btnMul, btnDiv, btnClrAl, btnClr, btnEql,btnFct;
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0;
 
     String mathOperator;
@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         double result = 0;
+        int factAns = 1;
         String disVal1 = disResults.getText().toString();
         String disVal2 = valEnter.getText().toString();
         String disVal3 = cceDisplay.getText().toString();
@@ -75,15 +76,33 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     tempVal = tempVal.append(btn9.getText());
                     valEnter.setText(tempVal);
                     break;
-                case R.id.clrAll:
-                    valEnter.setText("");
-                    disResults.setText("");
-                    System.out.println("Clicked clear all button#######");
-                    cceDisplay.setText("CE");
-                    break;
                 case R.id.clr:
                     valEnter.setText("");
+                    disResults.setText("");
+                    cceDisplay.setText("CE");
+                    break;
+                case R.id.clrAll:
+                    System.out.println("Clicked clear all button#######");
+                    valEnter.setText("");
                     cceDisplay.setText("C");
+                    break;
+                case R.id.fact: //get factorial values of a numbrt
+                    if (valEnter.equals("")){
+                        System.out.println("get in to factorial function");
+                        //do nothing
+                    }else {
+                        System.out.println("get in to factorial function");
+                        int factNum = Integer.parseInt(valEnter.getText().toString());
+                        System.out.println(factNum+"******************");
+                        for (int i=factNum; i>0; i--);{
+                            System.out.println("running the for loop");
+                            factAns *= factNum;
+                            factNum--;
+                        }
+                        valEnter.setText(Integer.toString(factAns));
+                    }
+
+
                     break;
                 case R.id.add:
                     if (disVal1.equals("")) {
@@ -94,27 +113,29 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         cceDisplay.setText("+");
                     } else {
                         if (disVal3.equals("")) {
-                        } else if (disVal2.equals("")) {
-                            cceDisplay.setText("+");
                         } else {
-                            double numAdd1 = Double.parseDouble(disResults.getText().toString());
-                            double numAdd2 = Integer.parseInt(valEnter.getText().toString());
-                            if (disVal3.equals("+")) {
-                                result = numAdd1 + numAdd2;
-                                disResults.setText(String.valueOf(result));
-                            } else if (mathOperator.equals("-")) {
-                                result = numAdd1 - numAdd2;
-                                disResults.setText(String.valueOf(result));
-                            } else if (mathOperator.equals("*")) {
-                                result = numAdd1 * numAdd2;
-                                disResults.setText(String.valueOf(result));
-                            } else if (mathOperator.equals("/")) {
-                                result = numAdd1 / numAdd2;
-                                disResults.setText(String.valueOf(result));
+                            if (disVal2.equals("")) {
+                                cceDisplay.setText("+");
+                            } else {
+                                double numSub1 = Double.parseDouble(disResults.getText().toString());
+                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
+                                if (disVal3.equals("+")) {
+                                    result = numSub1 + numSub2;
+                                    disResults.setText(String.valueOf(result));
+                                } else if (disVal3.equals("-")) {
+                                    result = numSub1 - numSub2;
+                                    disResults.setText(String.valueOf(result));
+                                } else if (disVal3.equals("*")) {
+                                    result = numSub1 * numSub2;
+                                    disResults.setText(String.valueOf(result));
+                                } else if (disVal3.equals("/")) {
+                                    result = numSub1 / numSub2;
+                                    disResults.setText(String.valueOf(result));
+                                }
+                                valEnter.setText("");
+                                mathOperator = "+";
+                                cceDisplay.setText("+");
                             }
-                            valEnter.setText("");
-                            mathOperator = "+";
-                            cceDisplay.setText("+");
                         }
                     }
                     break;
@@ -136,13 +157,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 if (disVal3.equals("+")) {
                                     result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("-")) {
+                                } else if (disVal3.equals("-")) {
                                     result = numSub1 - numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("*")) {
+                                } else if (disVal3.equals("*")) {
                                     result = numSub1 * numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("/")) {
+                                } else if (disVal3.equals("/")) {
                                     result = numSub1 / numSub2;
                                     disResults.setText(String.valueOf(result));
                                 }
@@ -163,22 +184,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     } else {
                         if (disVal3.equals("")) {
                         } else {
-                            if (disVal3.equals("")) {
+                            if (disVal2.equals("")) {
                                 cceDisplay.setText("x");
                             } else {
-                                double numMul1 = Double.parseDouble(disResults.getText().toString());
-                                double numMul2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub1 = Double.parseDouble(disResults.getText().toString());
+                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
-                                    result = numMul1 + numMul2;
+                                    result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("-")) {
-                                    result = numMul1 - numMul2;
+                                } else if (disVal3.equals("-")) {
+                                    result = numSub1 - numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("*")) {
-                                    result = numMul1 * numMul2;
+                                } else if (disVal3.equals("*")) {
+                                    result = numSub1 * numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("/")) {
-                                    result = numMul1 / numMul2;
+                                } else if (disVal3.equals("/")) {
+                                    result = numSub1 / numSub2;
                                     disResults.setText(String.valueOf(result));
                                 }
                                 valEnter.setText("");
@@ -198,22 +219,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     } else {
                         if (disVal3.equals("")) {
                         } else {
-                            if (disVal3.equals("")) {
+                            if (disVal2.equals("")) {
                                 cceDisplay.setText("/");
                             } else {
-                                double numDiv1 = Double.parseDouble(disResults.getText().toString());
-                                double numDiv2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub1 = Double.parseDouble(disResults.getText().toString());
+                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
-                                    result = numDiv1 + numDiv2;
+                                    result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("-")) {
-                                    result = numDiv1 - numDiv2;
+                                } else if (disVal3.equals("-")) {
+                                    result = numSub1 - numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("*")) {
-                                    result = numDiv1 * numDiv2;
+                                } else if (disVal3.equals("*")) {
+                                    result = numSub1 * numSub2;
                                     disResults.setText(String.valueOf(result));
-                                } else if (mathOperator.equals("/")) {
-                                    result = numDiv1 / numDiv2;
+                                } else if (disVal3.equals("/")) {
+                                    result = numSub1 / numSub2;
                                     disResults.setText(String.valueOf(result));
                                 }
                                 valEnter.setText("");
@@ -226,11 +247,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 case R.id.eql:
                     System.out.println("Enter to eql function###");
                     if (disVal1.equals("")) {
+                        System.out.println("main display value is empty##");
                     } else {
                         mathOperator = cceDisplay.getText().toString();
                         System.out.println(mathOperator);
-                        double num1 = Double.parseDouble(disResults.toString());
-                        double num2 = Double.parseDouble(valEnter.toString());
+                        double num1 = Double.parseDouble(disResults.getText().toString());
+                        double num2 = Integer.parseInt(valEnter.getText().toString());
                         if (mathOperator.equals("+")) {
                             System.out.println("enter to equal +++++++++++++++++++ ");
                             result = num1 + num2;
@@ -245,22 +267,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                             result = num1 / num2;
                             disResults.setText(String.valueOf(result));
                         }
-
+                        valEnter.setText("");
+                        cceDisplay.setText("");
+                    }
+                    break;
             }
-            break;
+        } catch (Exception e) {
+            System.out.println("Exception in text edit field..###" + e);
         }
     }
-
-    catch(
-    Exception e
-    )
-
-    {
-        System.out.println("Exception in text edit field..###"+ e);
-        ;
-    }
-
-}
 
 
     @Override
@@ -274,6 +289,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             btnSub = (Button) findViewById(R.id.sub);
             btnMul = (Button) findViewById(R.id.mult);
             btnDiv = (Button) findViewById(R.id.div);
+            btnFct = (Button) findViewById(R.id.fact);
             btnClrAl = (Button) findViewById(R.id.clrAll);
             btnClr = (Button) findViewById(R.id.clr);
             btnEql = (Button) findViewById(R.id.eql);
@@ -299,6 +315,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             btnSub.setOnClickListener(this);
             btnMul.setOnClickListener(this);
             btnDiv.setOnClickListener(this);
+            btnFct.setOnClickListener(this);
             btnEql.setOnClickListener(this);
             btnClrAl.setOnClickListener(this);
             btnClr.setOnClickListener(this);
