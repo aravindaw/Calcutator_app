@@ -1,7 +1,7 @@
 package com.hms.aravinda.calculator;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +18,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Editable ftNum;
     Editable sdNum;
 
-    Button btnAdd, btnSub, btnMul, btnDiv, btnClrAl, btnClr, btnEql,btnFct;
+    Button btnAdd, btnSub, btnMul, btnDiv, btnClrAl, btnClr, btnEql, btnFct, btnDPoint;
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0;
 
     String mathOperator;
     TextView cceDisplay;
     EditText valEnter, disResults;
+    String ope;
 
     @Override
     public void onClick(View v) {
@@ -86,23 +87,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     valEnter.setText("");
                     cceDisplay.setText("C");
                     break;
-                case R.id.fact: //get factorial values of a numbrt
-                    if (valEnter.equals("")){
-                        System.out.println("get in to factorial function");
-                        //do nothing
+                case R.id.decimalPoint:
+                    String checkDPoint = valEnter.getText().toString();
+                    if (!checkDPoint.contains(".")){
+                        String addDPoint = (valEnter.getText().toString())+".";
+                        valEnter.setText(addDPoint);
                     }else {
+                        String addDPoint = valEnter.getText().toString();
+                        valEnter.setText(addDPoint);
+                    }
+                    break;
+                case R.id.fact: //get factorial values of a number
+                    if (valEnter.equals("")) {
+                        //do nothing
+                    } else {
                         System.out.println("get in to factorial function");
                         int factNum = Integer.parseInt(valEnter.getText().toString());
-                        System.out.println(factNum+"******************");
-                        for (int i=factNum; i>0; i--);{
-                            System.out.println("running the for loop");
-                            factAns *= factNum;
-                            factNum--;
-                        }
-                        valEnter.setText(Integer.toString(factAns));
+                        for (int i = 1; i <= factNum; i++)
+                            factAns = i * factAns;
+                        System.out.println("factorial is " + factAns + "####");
                     }
-
-
+                    valEnter.setText(Integer.toString(factAns));
                     break;
                 case R.id.add:
                     if (disVal1.equals("")) {
@@ -118,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 cceDisplay.setText("+");
                             } else {
                                 double numSub1 = Double.parseDouble(disResults.getText().toString());
-                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub2 = Double.parseDouble(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
                                     result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
@@ -153,7 +158,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 cceDisplay.setText("-");
                             } else {
                                 double numSub1 = Double.parseDouble(disResults.getText().toString());
-                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub2 = Double.parseDouble(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
                                     result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
@@ -188,7 +193,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 cceDisplay.setText("x");
                             } else {
                                 double numSub1 = Double.parseDouble(disResults.getText().toString());
-                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub2 = Double.parseDouble(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
                                     result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
@@ -223,7 +228,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                                 cceDisplay.setText("/");
                             } else {
                                 double numSub1 = Double.parseDouble(disResults.getText().toString());
-                                double numSub2 = Integer.parseInt(valEnter.getText().toString());
+                                double numSub2 = Double.parseDouble(valEnter.getText().toString());
                                 if (disVal3.equals("+")) {
                                     result = numSub1 + numSub2;
                                     disResults.setText(String.valueOf(result));
@@ -252,7 +257,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         mathOperator = cceDisplay.getText().toString();
                         System.out.println(mathOperator);
                         double num1 = Double.parseDouble(disResults.getText().toString());
-                        double num2 = Integer.parseInt(valEnter.getText().toString());
+                        double num2 = Double.parseDouble(valEnter.getText().toString());
                         if (mathOperator.equals("+")) {
                             System.out.println("enter to equal +++++++++++++++++++ ");
                             result = num1 + num2;
@@ -272,9 +277,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     }
                     break;
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e
+                )
+
+        {
             System.out.println("Exception in text edit field..###" + e);
         }
+
     }
 
 
@@ -293,6 +303,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             btnClrAl = (Button) findViewById(R.id.clrAll);
             btnClr = (Button) findViewById(R.id.clr);
             btnEql = (Button) findViewById(R.id.eql);
+            btnDPoint = (Button) findViewById(R.id.decimalPoint);
 
             btn1 = (Button) findViewById(R.id.button1);
             btn2 = (Button) findViewById(R.id.button2);
@@ -319,6 +330,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             btnEql.setOnClickListener(this);
             btnClrAl.setOnClickListener(this);
             btnClr.setOnClickListener(this);
+            btnDPoint.setOnClickListener(this);
 
             btn1.setOnClickListener(this);
             btn2.setOnClickListener(this);
